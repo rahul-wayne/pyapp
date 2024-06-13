@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: rahulwaynepyapp 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rahulwaynepyapp
+  template:
+    metadata:
+      labels:
+        app: rahulwaynepyapp 
+    spec:
+      containers:
+        - name: rahulwaynepyapp 
+          image: xxdockerimage.azurecr.io/rahulwaynepyapp
+          ports:
+          - containerPort: 5000
