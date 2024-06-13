@@ -1,19 +1,58 @@
-apiVersion : apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rahulwaynepyapp 
+  name: mongodb-deployment
+  labels:
+    app: mongodb
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: rahulwaynepyapp
+      app: mongodb
   template:
     metadata:
       labels:
-        app: rahulwaynepyapp 
+        app: mongodb
     spec:
       containers:
-        - name: rahulwaynepyapp 
-          image: xxdockerimage.azurecr.io/rahulwaynepyapp
-          ports:
-          - containerPort: 5000
+      - name: mongodb
+        image: mongo:latest
+        ports:
+        - containerPort: 27017
+
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mongo-init-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: mongo-init
+        image: mongo:latest
+        command: ["sh", "-c", "mongosh --host mongodb-service --eval 'use microserviceDB; db.createCollection(\"data\")'"]
+      restartPolicy: OnFailure
+
+---        
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pyapp-deployment
+  labels:
+    app: pyapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pyapp
+  template:
+    metadata:
+      labels:
+        app: pyapp
+    spec:
+      containers:
+      - name: pyapp
+        image: xxdockerimage.azurecr.io/rahulwaynepyapp
+        ports:
+        - containerPort: 5000

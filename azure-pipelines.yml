@@ -29,6 +29,7 @@ stages:
   - job: Build
     displayName: Build
     pool:
+      name: dev
       vmImage: $(vmImageName)
     steps:
     - task: Docker@2
@@ -52,6 +53,7 @@ stages:
   - deployment: Deploy
     displayName: Deploy
     pool:
+      name: dev
       vmImage: $(vmImageName)
     environment: 'rahulwaynepyapp.pyapp'
     strategy:
