@@ -5,7 +5,7 @@ metadata:
   labels:
     app: mongodb
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: mongodb
@@ -42,7 +42,7 @@ metadata:
   labels:
     app: pyapp
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: pyapp
