@@ -1,0 +1,21 @@
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb-service
+    ports:
+      - "27017:27017"
+    networks:
+      - my-network
+
+  app:
+    image: blackpearl001/pyapp:1.0
+    container_name: pyapp
+    depends_on:
+      - mongodb
+    ports:
+      - "80:5000"
+    networks:
+      - my-network
+
+networks:
+  my-network:

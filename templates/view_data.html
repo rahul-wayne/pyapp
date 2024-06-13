@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Data</title>
+</head>
+<body>
+    <h1>View Data</h1>
+    <ul>
+        {% for item in data %}
+        <li>{{ item.title }}: {{ item.content }} - <a href="/delete/{{ item._id }}">Delete</a></li>
+        {% else %}
+        <li>No data found.</li>
+        {% endfor %}
+    </ul>
+    <a href="/">Home</a>
+</body>
+</html>
