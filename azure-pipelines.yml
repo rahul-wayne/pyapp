@@ -45,6 +45,13 @@ stages:
     - upload: manifests
       artifact: manifests
 
+    - task: Bash@3
+      displayName: Cleanup docker image 
+      inputs:
+        targetType: 'inline'
+        script: |
+          docker rm $(imageRepository):$(tag)
+
 - stage: Deploy
   displayName: Deploy stage
   dependsOn: Build
