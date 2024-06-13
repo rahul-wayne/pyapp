@@ -50,7 +50,7 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          docker rm $(imageRepository):$(tag)
+          docker rm $(containerRegistry)/$(imageRepository):$(tag)
 
 - stage: Deploy
   displayName: Deploy stage
